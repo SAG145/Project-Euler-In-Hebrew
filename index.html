@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <title>ברוך הבא לאתר</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="navigation"></div>
+  <main>
+    <h1>ברוכים הבאים !</h1>
+    <p>אתר זה הוא תרגום של פרויקט אוילר, וכל התוכן המופיע בו מגיע מהאתר.</p>
+    <p>קישור לאתר המקורי של פרויקט אוילר:<a href="https://projecteuler.net">Project Euler</a>.</p>
+    <a href="problems-page.html">מעבר לדף הבעיות</a>
+  </main>
+  <script>
+    fetch('navigation.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('navigation').innerHTML = html);
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>בעיה</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <div id="navigation"></div>
+
+  <main class="problem-container">
+    <div class="problem-nav-boxes">
+      <a id="prev-link" class="nav-box prev-box">הבעיה הקודמת</a>
+      <a id="original-link" class="nav-box original-box" target="_blank">לבעיה המקורית</a>
+      <a id="next-link" class="nav-box next-box">הבעיה הבאה</a>
+    </div>
+
+    <h1 id="problem-title"></h1>
+    <h2 id="problem-number"></h2>
+    <div id="problem-wrapper">
+      <div id="problem-content"></div>
+    </div>
+
+  </main>
+
+  <script>
+    // Load menu
+    fetch("navigation.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("navigation").innerHTML = html);
+
+    // Extract problem ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const problemId = parseInt(urlParams.get('id'));
+
+    // Load problem data
+    fetch("problems-data.json")
+      .then(res => res.json())
+      .then(data => {
+        const problem = data.find(p => p.id === problemId);
+        if (!problem) {
+          document.getElementById("problem-content").innerHTML = "<p>בעיה לא נמצאה</p>";
+          return;
+        }
+        const originalUrl = `https://projecteuler.net/problem=${problem.id}`;
+
+        document.getElementById("problem-title").textContent = problem.name;
+        document.getElementById("problem-number").textContent = `בעיה ${problemId}`;
+        document.getElementById("original-link").href = originalUrl;
+
+        // Load HTML content of the problem
+        fetch(`problems-files/problem${problemId}.html`)
+          .then(res => res.text())
+          .then(content => {
+            document.getElementById("problem-content").innerHTML = content;
+             if (window.MathJax) MathJax.typeset();
+          });
+
+        // Navigation
+        const prevLink = document.getElementById("prev-link");
+        const nextLink = document.getElementById("next-link");
+
+        if (data.find(p => p.id === problemId - 1)) {
+          prevLink.href = `problem-template.html?id=${problemId - 1}`;
+        } else {
+          prevLink.classList.add("invisible");
+        }
+
+        if (data.find(p => p.id === problemId + 1)) {
+          nextLink.href = `problem-template.html?id=${problemId + 1}`;
+        } else {
+          nextLink.classList.add("invisible");
+        }
+
+      });
+  </script>
+</body>
+</html>
