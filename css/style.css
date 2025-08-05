@@ -122,3 +122,15 @@ nav a:hover {
 .smaller-text {
   font-size: 0.9em;
 }
+
+.centered-table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+.centered-table td,
+.centered-table th {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
