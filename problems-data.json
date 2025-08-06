@@ -350,6 +350,21 @@
     "difficulty": 20
   },
   {
+    "id": 71,
+    "name": "שברים מסודרים",
+    "difficulty": 10
+  },
+  {
+    "id": 72,
+    "name": "סופרים שברים",
+    "difficulty": 20
+  },
+  {
+    "id": 73,
+    "name": "סופרים שברים בטווח",
+    "difficulty": 15
+  },
+  {
     "id": 100,
     "name": "הסתברות מסודרת",
     "difficulty": 30
